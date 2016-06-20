@@ -56,6 +56,16 @@ public class PricesList {
 		this.lastUpdated = lastUpdated;
 		this.dateCreated = dateCreated;
 	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return "PricesList [id=" + id + ", idSap=" + idSap + ", currency=" + currency + ", base=" + base + ", country="
+				+ country + ", description=" + description + ", valid=" + valid + ", lastUpdated=" + lastUpdated
+				+ ", dateCreated=" + dateCreated + "]";
+	}
+
 	public Long getId() {
 		return id;
 	}
