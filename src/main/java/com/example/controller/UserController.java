@@ -13,18 +13,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.model.PricesList;
-import com.example.model.PricesListDao;
+import com.example.model.User;
+import com.example.model.UserDao;
 import com.google.gson.Gson;
 
 
 
 @Controller
 @EnableAutoConfiguration
-public class SampleController {
+public class UserController {
+	
 	
 	@Autowired(required = true)
-	private PricesListDao pricesListDao;
+	UserDao userDao;
+
+	
 	
 	@RequestMapping("/")
 	@ResponseBody
@@ -34,28 +37,26 @@ public class SampleController {
 	
 
 	
-	@RequestMapping(value = "/getAllPricesList",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getAllUsers",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> gelAllPricesList(){
+	public ResponseEntity<String> getAllUsers(){
 		Gson gson = new Gson();
-		
-		Collection<PricesList> pricesList = (Collection<PricesList>) pricesListDao.findAll();
-	 	return new ResponseEntity<String>(gson.toJson(pricesList), HttpStatus.OK);
+		Collection<User> users = (Collection<User>) userDao.findAll();
+	 	return new ResponseEntity<String>(gson.toJson(users), HttpStatus.OK);
 		
 	}
 	
 	
-	@RequestMapping(value = "/getPricesList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> getPriceListByIdSap(
-			@RequestParam(value="idSap") Integer idSap){
-		PricesList pricesList = new PricesList();
+	public ResponseEntity<String> getUserByEmail(
+			@RequestParam(value="email") String email){		
 		Gson gson = new Gson();
 		
-		pricesList = (PricesList) pricesListDao.findByIdSap(idSap);
+		User user = (User) userDao.findByEmail(email);
 		
- 		if (pricesList != null){
- 			return new ResponseEntity<String>(gson.toJson(pricesList), HttpStatus.OK);
+ 		if (user != null){
+ 			return new ResponseEntity<String>(gson.toJson(user), HttpStatus.OK);
  		}else{
  			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
  		}		 		

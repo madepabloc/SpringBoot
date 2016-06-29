@@ -4,10 +4,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface PricesListDao extends CrudRepository<PricesList, Long>{
+public interface UserDao extends CrudRepository<User, Long>{
 		
 	@Transactional
-	public PricesList findByIdSap(Integer idSap);
+	public User findByEmail(String email);
 	
 
 }
